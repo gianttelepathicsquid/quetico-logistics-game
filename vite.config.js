@@ -1,21 +1,31 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  },
   build: {
-    sourcemap: true,
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-      },
+      external: [
+        'fsevents',
+        'path',
+        'crypto',
+        'fs',
+        'util',
+        'events',
+        'stream',
+        'buffer',
+        'querystring',
+        'url',
+        'http',
+        'https',
+        'zlib',
+        'net',
+        'tls',
+        'assert',
+        'tty',
+        'os',
+        'constants'
+      ],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'lucide-react']
