@@ -1,19 +1,26 @@
-import React from 'react';
-import LogisticsGame from './components/LogisticsGame';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-function App() {
-  return (
-    <div style={{ 
-      padding: '20px',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}>
-      <LogisticsGame />
-    </div>
-  );
-}
-
-export default App;
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'lucide-react']
+        }
+      }
+    }
+  }
+});
